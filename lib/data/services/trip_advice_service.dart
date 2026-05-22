@@ -9,15 +9,16 @@ class TripAdviceService {
   final String baseUrl = "http://localhost:8080/api";
 
   // Future is een async functie bij flutter, het geeft aan dat deze functie asynchroon is en een waarde zal teruggeven in de toekomst (in dit geval een lijst van TripAdvice)
-  Future<List<TripAdvice>> fetchTripAdvice(String from, String to) async {
+  Future<List<TripAdvice>> fetchTripAdvice(String from, String to, DateTime dateTime) async {
     // Uri.encodeComponent zorgt ervoor dat speciale tekens in de locatie (zoals spaties) correct worden gecodeerd in de URL
     // Bijvoorbeeld, "Amsterdam Centraal" wordt "Amsterdam%20Centraal" 
     final String encodedFrom = Uri.encodeComponent(from);
     final String encodedTo = Uri.encodeComponent(to);
+    final String encodedDateTime = Uri.encodeComponent(dateTime.toIso8601String());
 
     // de volledige url voor de api call, met de geëncodeerde locaties als query parameters
-    final String url = '$baseUrl/trips/advice?from=$encodedFrom&to=$encodedTo';
-    
+    final String url = '$baseUrl/trips/advice?from=$encodedFrom&to=$encodedTo&dateTime=$encodedDateTime';
+
     // de api call zelf
     final response = await http.get(Uri.parse(url));
     // als de respone goed is, zet dan de json data om in een lijst van trip adviezen
