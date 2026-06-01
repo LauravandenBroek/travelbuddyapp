@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:travelbuddyapp/widgets/side_menu.dart';
 import '../data/models/trip_advice_model.dart';
 import '../data/services/trip_advice_service.dart';
 
@@ -105,7 +106,8 @@ class _TripSearchScreenState extends State<TripSearchScreen>  {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Zoek je reis')), 
+      appBar: AppBar(title: const Text('Zoek je reis')),
+      drawer: const SideMenu(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column (
