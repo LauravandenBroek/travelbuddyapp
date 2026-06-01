@@ -5,7 +5,6 @@ import 'package:url_launcher/url_launcher.dart';
 class IdentityService {
   final String baseUrl = "http://localhost:8080/api/identity";
 
-  // 1. Parameter toegevoegd
   Future<void> startVerification(String travellerId) async {
     
     final response = await http.post(
@@ -14,7 +13,7 @@ class IdentityService {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-        'travellerId': travellerId, // 2. Wordt nu direct uit de parameter gehaald
+        'travellerId': travellerId, 
       }),
     );
 

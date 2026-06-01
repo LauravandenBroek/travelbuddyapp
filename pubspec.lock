@@ -317,6 +317,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.1"
+  stripe_identity_plugin:
+    dependency: "direct main"
+    description:
+      name: stripe_identity_plugin
+      sha256: "727381e71506e96b2931c30bf7a30de20b67cdd188f0b258bad19f4f8d187607"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   term_glyph:
     dependency: transitive
     description:
