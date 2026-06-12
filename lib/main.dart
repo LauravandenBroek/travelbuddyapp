@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart'; 
+
 import 'package:travelbuddyapp/screens/login_screen.dart';
 import 'screens/trip_search_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await dotenv.load(fileName: ".env");
+
   runApp(const MyApp());
 }
 
@@ -50,5 +56,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

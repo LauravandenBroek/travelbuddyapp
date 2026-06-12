@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:travelbuddyapp/data/models/login_response_model.dart';
 import '../models/register_request_model.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 class AuthenticationService {
-  final String baseUrl = "http://localhost:8080/api/auth";
+  final String baseUrl = '${dotenv.env['BASE_URL']}/auth';
 
   Future<void> register(RegisterRequestModel registerRequest) async {
     final response = await http.post(

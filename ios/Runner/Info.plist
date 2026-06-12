@@ -66,5 +66,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Travel Buddy heeft toegang tot je camera nodig om je identiteitsbewijs veilig te kunnen scannen.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Travel Buddy heeft toegang tot je fotobibliotheek nodig zodat je een bestaande foto van je identiteitsbewijs kunt uploaden.</string>
 </dict>
 </plist>

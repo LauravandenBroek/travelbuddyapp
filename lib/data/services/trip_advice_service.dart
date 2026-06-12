@@ -1,12 +1,12 @@
 import 'dart:convert';
 import '../models/trip_advice_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
 class TripAdviceService {
 
-  // Base url van de backend api, eigenlijk in .env bestand zetten maar voor nu even hier hardcoded
-  final String baseUrl = "http://localhost:8080/api";
+  final String baseUrl = dotenv.env['BASE_URL']!; 
 
   // Future is een async functie bij flutter, het geeft aan dat deze functie asynchroon is en een waarde zal teruggeven in de toekomst (in dit geval een lijst van TripAdvice)
   Future<List<TripAdvice>> fetchTripAdvice(String from, String to, DateTime dateTime) async {

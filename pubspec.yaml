@@ -39,10 +39,14 @@ dependencies:
   shared_preferences: ^2.5.5
   url_launcher: ^6.3.2
   stripe_identity_plugin: ^1.0.5
+  flutter_dotenv: ^6.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
+
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -56,6 +60,9 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+
+  assets: 
+    - .env
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

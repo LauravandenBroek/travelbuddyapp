@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class IdentityService {
-  final String baseUrl = "http://localhost:8080/api/identity";
-
-  Future<void> startVerification(String travellerId) async {
-    
+  // Dit is het IP van je Asus laptop op je lokale netwerk
+  final String baseUrl = '${dotenv.env['BASE_URL']}/identity';
+  Future<Map<String, String>> fetchSessionData(String travellerId) async {
     final response = await http.post(
       Uri.parse('$baseUrl/start-verification'),
       headers: <String, String>{
@@ -18,19 +17,18 @@ class IdentityService {
     );
 
     if (response.statusCode == 200) {
-      final url = jsonDecode(response.body)['url'];
-      await _launchURL(url);
+      final data = jsonDecode(response.body);
+      
+      if (data['sessionId'] == null || data['ephemeralKeySecret'] == null) {
+        throw Exception('Kritieke data ontbreekt in backend response!');
+      }
+      
+      return {
+        'sessionId': data['sessionId'],
+        'ephemeralKeySecret': data['ephemeralKeySecret'],
+      };
     } else {
-      throw Exception('Failed to start verification.');
-    }
-  }
-
-  Future<void> _launchURL(String url) async {
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      throw 'Could not launch $url';
+      throw Exception('Backend faalde met statuscode: ${response.statusCode}');
     }
   }
 }

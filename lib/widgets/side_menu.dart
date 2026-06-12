@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:travelbuddyapp/data/services/identity_service.dart';
+import 'package:travelbuddyapp/screens/verification_screen.dart'; 
 import 'package:travelbuddyapp/screens/login_screen.dart';
 
 class SideMenu extends StatefulWidget {
@@ -33,25 +33,7 @@ class _SideMenuState extends State<SideMenu> {
     }
   }
 
-  void _verifyIdentity() async {
-    if (_travellerId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Kan identiteit niet verifiëren: geen ID gevonden.')),
-      );
-      return;
-    }
-
-    try {
-      final identityService = IdentityService();
-      // Parameter toegevoegd
-      await identityService.startVerification(_travellerId!);
-    } catch (e) {
-      if (!mounted) return; // Veiligheidscheck voor context gebruik
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Verification failed: $e')),
-      );
-    }
-  }
+  // De _verifyIdentity() methode is hier compleet verwijderd!
 
   @override
   Widget build(BuildContext context) {
@@ -83,8 +65,24 @@ class _SideMenuState extends State<SideMenu> {
               leading: const Icon(Icons.verified_user),
               title: const Text('Verify Identity'),
               onTap: () {
-                _verifyIdentity();
+                // 1. Sluit eerst de side drawer
                 Navigator.pop(context);
+
+                // 2. Veiligheidscheck voor het ID
+                if (_travellerId == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Kan identiteit niet verifiëren: geen ID gevonden.')),
+                  );
+                  return;
+                }
+
+                // 3. Navigeer naar het VerificationScreen en geef het ID mee
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => VerificationScreen(travellerId: _travellerId!),
+                  ),
+                );
               },
             ),
           ListTile(
@@ -102,7 +100,7 @@ class _SideMenuState extends State<SideMenu> {
               await prefs.remove('authToken');
               await prefs.remove('traveller');
               
-              if (!context.mounted) return; // Ook hier de safety check
+              if (!context.mounted) return; 
               
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => const LoginScreen()),
