@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelbuddyapp/screens/verification_screen.dart'; 
 import 'package:travelbuddyapp/screens/login_screen.dart';
+import '../screens/travel_requests_screen.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({super.key});
@@ -29,11 +30,11 @@ class _SideMenuState extends State<SideMenu> {
       setState(() {
         _verificationStatus = traveller['verificationStatus'];
         _travellerId = traveller['id']; 
+        
       });
     }
   }
 
-  // De _verifyIdentity() methode is hier compleet verwijderd!
 
   @override
   Widget build(BuildContext context) {
@@ -60,15 +61,35 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.pop(context);
             },
           ),
+
+          ListTile(
+            leading: const Icon(Icons.landslide),
+            title: const Text('My trips'),
+            onTap: () {
+              Navigator.pop(context);
+              if (_travellerId == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Gegevens worden nog geladen...')),
+                );
+                return;
+              }
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyTripsScreen(travellerId: _travellerId!),
+                ),
+              );
+            },
+          ),
+
           if (_verificationStatus == 'UNVERIFIED')
             ListTile(
               leading: const Icon(Icons.verified_user),
               title: const Text('Verify Identity'),
               onTap: () {
-                // 1. Sluit eerst de side drawer
                 Navigator.pop(context);
 
-                // 2. Veiligheidscheck voor het ID
                 if (_travellerId == null) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Kan identiteit niet verifiëren: geen ID gevonden.')),
@@ -76,7 +97,6 @@ class _SideMenuState extends State<SideMenu> {
                   return;
                 }
 
-                // 3. Navigeer naar het VerificationScreen en geef het ID mee
                 Navigator.push(
                   context,
                   MaterialPageRoute(

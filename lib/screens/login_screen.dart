@@ -80,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('authToken', loginResponse.token);
+        await prefs.setString('travellerId', loginResponse.traveller.id.toString());
         await prefs.setString('traveller', jsonEncode(loginResponse.traveller.toJson()));
 
         if (!mounted) return;

@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class IdentityService {
-  // Dit is het IP van je Asus laptop op je lokale netwerk
   final String baseUrl = '${dotenv.env['BASE_URL']}/identity';
   Future<Map<String, String>> fetchSessionData(String travellerId) async {
     final response = await http.post(
