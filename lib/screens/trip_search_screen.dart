@@ -240,7 +240,9 @@ class _TripSearchScreenState extends State<TripSearchScreen> {
                   return TextField(
                     controller: controller,
                     focusNode: focusNode,
-                    onEditingComplete: onEditingComplete,
+                    onEditingComplete: (){
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
                     decoration: const InputDecoration(
                       labelText: 'Van station',
                       hintText: 'Bijv. Amsterdam Centraal',
@@ -269,7 +271,9 @@ class _TripSearchScreenState extends State<TripSearchScreen> {
                   return TextField(
                     controller: controller,
                     focusNode: focusNode,
-                    onEditingComplete: onEditingComplete,
+                    onEditingComplete: (){
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
                     decoration: const InputDecoration(
                       labelText: 'Naar station',
                       hintText: 'Bijv. Utrecht Centraal',
